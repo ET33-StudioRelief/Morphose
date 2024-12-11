@@ -54,7 +54,8 @@
   "dependencies": {
     "@finsweet/ts-utils": "^0.40.0",
     "@marker.io/browser": "^0.20.2",
-    "gsap": "^3.12.5"
+    "gsap": "^3.12.5",
+    "jquery": "^3.7.1"
   },
   "engines": {
     "pnpm": ">=9"
