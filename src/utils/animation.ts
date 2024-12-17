@@ -35,7 +35,7 @@ export function animateCercle() {
   );
 }
 
-export function glitchEffect() {
+/*export function glitchEffect() {
   const elements = document.querySelectorAll('.hero_logo-wrapper');
 
   elements.forEach((element) => {
@@ -80,7 +80,7 @@ export function glitchEffect() {
       },
     });
   });
-}
+}*/
 
 export function contributorsHoverEffect() {
   const cards = document.querySelectorAll<HTMLElement>('.contributors_card');

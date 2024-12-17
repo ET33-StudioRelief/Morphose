@@ -1,16 +1,10 @@
 import './index.css';
 
-import {
-  animateCercle,
-  contributorsHoverEffect,
-  footerParallaxEffect,
-  glitchEffect,
-} from '$utils/animation';
+import { animateCercle, contributorsHoverEffect, footerParallaxEffect } from '$utils/animation';
 
 contributorsHoverEffect();
 footerParallaxEffect();
 
 if (window.location.pathname === '/') {
   animateCercle();
-  glitchEffect();
 }
