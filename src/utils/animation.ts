@@ -178,3 +178,129 @@ export function footerParallaxEffect() {
     });
   });
 }
+
+export function initScrollUpHover() {
+  const headingContent = document.querySelector('.hero_heading-content');
+
+  if (!headingContent) return;
+
+  // Ajouter les styles CSS nécessaires
+  const style = document.createElement('style');
+  style.textContent = `
+    .hero_heading-content {
+      transition: transform 0.2s ease;
+    }
+    
+    .hero_heading-content.scrolling {
+      transform: translateY(-20px);
+    }
+  `;
+  document.head.appendChild(style);
+
+  // Ajouter les événements hover
+  headingContent.addEventListener('mouseenter', () => {
+    gsap.to(headingContent, {
+      y: -20,
+      duration: 0.2,
+      ease: 'power1.out',
+    });
+  });
+
+  headingContent.addEventListener('mouseleave', () => {
+    gsap.to(headingContent, {
+      y: 0,
+      duration: 0.2,
+      ease: 'power1.out',
+    });
+  });
+}
+
+export const initSocialButtonsHover = (): void => {
+  const buttons = document.querySelectorAll('.github-btn.is-big, .twiter-btn');
+
+  if (!buttons.length) return;
+
+  buttons.forEach((button) => {
+    // Animation au hover
+    button.addEventListener('mouseenter', () => {
+      gsap.to(button, {
+        scale: 0.95,
+        duration: 0.3,
+        ease: 'power2.out',
+      });
+    });
+
+    // Retour à l'état initial
+    button.addEventListener('mouseleave', () => {
+      gsap.to(button, {
+        scale: 1,
+        duration: 0.3,
+        ease: 'power2.out',
+      });
+    });
+  });
+};
+
+export const initH2Animations = (): void => {
+  // Vérifier si gsap et ScrollTrigger sont disponibles
+  if (!gsap || !ScrollTrigger) return;
+
+  // All h2 in heading_content
+  const h2Elements = document.querySelectorAll('.heading_content h2');
+
+  if (!h2Elements.length) return;
+
+  // Configuration initiale
+  gsap.set(h2Elements, {
+    opacity: 0,
+    x: -50,
+  });
+
+  // Créer une animation pour chaque h2
+  h2Elements.forEach((h2) => {
+    ScrollTrigger.create({
+      trigger: h2,
+      start: 'top bottom-=100', // Démarre quand le haut de h2 atteint 100px avant le bas du viewport
+      end: 'bottom top', // Termine quand le bas de h2 atteint le haut du viewport
+      once: true, // L'animation ne se joue qu'une fois
+
+      onEnter: () => {
+        gsap.to(h2, {
+          opacity: 1,
+          x: 0,
+          duration: 1,
+          ease: 'power3.out',
+        });
+      },
+    });
+  });
+};
+
+export const initAlgo2ImgScale = (): void => {
+  if (!gsap || !ScrollTrigger) return;
+
+  const section = document.querySelector('.section_algo2');
+  const imgWrapper = document.querySelector('.algo2_img-wrapper');
+
+  if (!section || !imgWrapper) return;
+
+  // Configuration initiale
+  gsap.set(imgWrapper, {
+    scale: 0.8,
+    transformOrigin: 'center center',
+  });
+
+  // Animation au scroll
+  ScrollTrigger.create({
+    trigger: section,
+    start: 'top center',
+    end: 'bottom center',
+    scrub: 1,
+
+    animation: gsap.to(imgWrapper, {
+      scale: 1,
+      duration: 1,
+      ease: 'none',
+    }),
+  });
+};

@@ -1,7 +1,7 @@
 /*.contributors_card {
     border-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.0)) 1;
 }*/
-.hero_logo-wrappert {
+.hero_logo-wrapper {
   width: 100%;
   height: 100%;
   display: flex;
