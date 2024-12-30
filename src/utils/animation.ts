@@ -9,30 +9,62 @@ export function animateCercle() {
 
   if (!trigger) return;
 
-  gsap.fromTo(
-    circles,
-    {
-      width: '0rem',
-      height: '0rem',
-      borderRadius: '50%',
-      transformOrigin: 'center',
-    },
-    {
+  // Fonction pour obtenir les dimensions finales selon la taille d'écran
+  const getFinalDimensions = () => {
+    if (window.innerWidth <= 480) {
+      return {
+        width: '100%',
+        height: '20rem',
+      };
+    }
+    return {
       width: '56rem',
       height: '56rem',
-      borderRadius: '50%',
-      duration: 4,
-      ease: 'power1.out',
-      repeat: -1,
-      yoyo: true,
-      repeatDelay: 0,
-      scrollTrigger: {
-        trigger: '.objectif_content',
-        start: 'top center',
-        // markers: true,
+    };
+  };
+
+  // Fonction pour créer l'animation
+  const createAnimation = () => {
+    // Kill toute animation existante
+    ScrollTrigger.getAll()
+      .filter((st) => st.vars.trigger === '.objectif_content')
+      .forEach((st) => st.kill());
+
+    const finalDimensions = getFinalDimensions();
+
+    gsap.fromTo(
+      circles,
+      {
+        width: '0rem',
+        height: '0rem',
+        borderRadius: '50%',
+        transformOrigin: 'center',
       },
-    }
-  );
+      {
+        width: finalDimensions.width,
+        height: finalDimensions.height,
+        borderRadius: '50%',
+        duration: 4,
+        ease: 'power1.out',
+        repeat: -1,
+        yoyo: true,
+        repeatDelay: 0,
+        scrollTrigger: {
+          trigger: '.objectif_content',
+          start: 'top center',
+          // markers: true,
+        },
+      }
+    );
+  };
+
+  // Création initiale de l'animation
+  createAnimation();
+
+  // Mise à jour de l'animation lors du redimensionnement
+  window.addEventListener('resize', () => {
+    createAnimation();
+  });
 }
 
 /*export function glitchEffect() {
@@ -192,7 +224,7 @@ export function initScrollUpHover() {
     }
     
     .hero_heading-content.scrolling {
-      transform: translateY(-20px);
+      transform: translateY(-20px) scale(0.95);
     }
   `;
   document.head.appendChild(style);
@@ -201,6 +233,7 @@ export function initScrollUpHover() {
   headingContent.addEventListener('mouseenter', () => {
     gsap.to(headingContent, {
       y: -20,
+      scale: 0.95, // Ajout du scale down
       duration: 0.2,
       ease: 'power1.out',
     });
@@ -209,6 +242,7 @@ export function initScrollUpHover() {
   headingContent.addEventListener('mouseleave', () => {
     gsap.to(headingContent, {
       y: 0,
+      scale: 1, // Retour à la taille normale
       duration: 0.2,
       ease: 'power1.out',
     });
@@ -279,28 +313,51 @@ export const initH2Animations = (): void => {
 export const initAlgo2ImgScale = (): void => {
   if (!gsap || !ScrollTrigger) return;
 
-  const section = document.querySelector('.section_algo2');
-  const imgWrapper = document.querySelector('.algo2_img-wrapper');
+  // Vérification de la largeur d'écran
+  const checkScreenSize = () => {
+    const section = document.querySelector('.section_algo2');
+    const imgWrapper = document.querySelector('.algo2_img-wrapper');
 
-  if (!section || !imgWrapper) return;
+    if (!section || !imgWrapper) return;
 
-  // Configuration initiale
-  gsap.set(imgWrapper, {
-    scale: 0.8,
-    transformOrigin: 'center center',
-  });
+    // Kill toutes les instances de ScrollTrigger existantes
+    ScrollTrigger.getAll()
+      .filter((st) => st.vars.trigger === section)
+      .forEach((st) => st.kill());
 
-  // Animation au scroll
-  ScrollTrigger.create({
-    trigger: section,
-    start: 'top center',
-    end: 'bottom center',
-    scrub: 1,
+    // Si l'écran est plus petit que 992px
+    if (window.innerWidth < 992) {
+      // Reset l'élément à son état normal
+      gsap.set(imgWrapper, {
+        scale: 1,
+        clearProps: 'all',
+      });
+    } else {
+      // Configuration pour grands écrans (≥992px)
+      gsap.set(imgWrapper, {
+        scale: 0.8,
+        transformOrigin: 'center center',
+      });
 
-    animation: gsap.to(imgWrapper, {
-      scale: 1,
-      duration: 1,
-      ease: 'none',
-    }),
+      ScrollTrigger.create({
+        trigger: section,
+        start: 'top center',
+        end: 'bottom center',
+        scrub: 1,
+        animation: gsap.to(imgWrapper, {
+          scale: 1,
+          duration: 1,
+          ease: 'none',
+        }),
+      });
+    }
+  };
+
+  // Vérification initiale
+  checkScreenSize();
+
+  // Vérification à chaque redimensionnement
+  window.addEventListener('resize', () => {
+    checkScreenSize();
   });
 };
