@@ -220,7 +220,7 @@ export function scaleDownLogoNav() {
   const style = document.createElement('style');
   style.textContent = `
     .navbar_logo-wrapper {
-      transition: transform 0.2s ease;
+      transition: transform 0.2s;
     }
     
     .navbar_logo-wrapper.scrolling {
@@ -234,7 +234,7 @@ export function scaleDownLogoNav() {
     gsap.to(logoNavContent, {
       scale: 0.8, // Ajout du scale down
       duration: 0.2,
-      ease: 'power1.out',
+      //ease: 'power1.out',
     });
   });
 
