@@ -6,13 +6,13 @@ import {
   footerParallaxEffect,
   initAlgo2ImgScale,
   initH2Animations,
-  initScrollUpHover,
   initSocialButtonsHover,
+  scaleDownLogoNav,
 } from '$utils/animation';
 
 contributorsHoverEffect();
 footerParallaxEffect();
-initScrollUpHover();
+scaleDownLogoNav();
 initSocialButtonsHover();
 initH2Animations();
 initAlgo2ImgScale();

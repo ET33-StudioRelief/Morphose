@@ -211,37 +211,35 @@ export function footerParallaxEffect() {
   });
 }
 
-export function initScrollUpHover() {
-  const headingContent = document.querySelector('.hero_heading-content');
+export function scaleDownLogoNav() {
+  const logoNavContent = document.querySelector('.navbar_logo-wrapper');
 
-  if (!headingContent) return;
+  if (!logoNavContent) return;
 
   // Ajouter les styles CSS nécessaires
   const style = document.createElement('style');
   style.textContent = `
-    .hero_heading-content {
+    .navbar_logo-wrapper {
       transition: transform 0.2s ease;
     }
     
-    .hero_heading-content.scrolling {
+    .navbar_logo-wrapper.scrolling {
       transform: translateY(-20px) scale(0.95);
     }
   `;
   document.head.appendChild(style);
 
   // Ajouter les événements hover
-  headingContent.addEventListener('mouseenter', () => {
-    gsap.to(headingContent, {
-      y: -20,
-      scale: 0.95, // Ajout du scale down
+  logoNavContent.addEventListener('mouseenter', () => {
+    gsap.to(logoNavContent, {
+      scale: 0.8, // Ajout du scale down
       duration: 0.2,
       ease: 'power1.out',
     });
   });
 
-  headingContent.addEventListener('mouseleave', () => {
-    gsap.to(headingContent, {
-      y: 0,
+  logoNavContent.addEventListener('mouseleave', () => {
+    gsap.to(logoNavContent, {
       scale: 1, // Retour à la taille normale
       duration: 0.2,
       ease: 'power1.out',
