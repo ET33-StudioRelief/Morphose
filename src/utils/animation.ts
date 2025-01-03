@@ -212,43 +212,30 @@ export function footerParallaxEffect() {
 }
 
 export function scaleDownLogoNav() {
-  const logoNavContent = document.querySelector('.navbar_logo-wrapper');
+  const logoWrapper = document.querySelector<HTMLElement>('.navbar_logo-wrapper');
+  if (!logoWrapper) return;
 
-  if (!logoNavContent) return;
-
-  // Ajouter les styles CSS nécessaires
-  const style = document.createElement('style');
-  style.textContent = `
-    .navbar_logo-wrapper {
-      transition: transform 0.2s;
-    }
-    
-    .navbar_logo-wrapper.scrolling {
-      transform: translateY(-20px) scale(0.95);
-    }
-  `;
-  document.head.appendChild(style);
-
-  // Ajouter les événements hover
-  logoNavContent.addEventListener('mouseenter', () => {
-    gsap.to(logoNavContent, {
-      scale: 0.8, // Ajout du scale down
-      duration: 0.2,
-      //ease: 'power1.out',
+  // Animation au hover
+  logoWrapper.addEventListener('mouseenter', () => {
+    gsap.to(logoWrapper, {
+      scale: 0.8,
+      duration: 0.3,
+      ease: 'linear',
     });
   });
 
-  logoNavContent.addEventListener('mouseleave', () => {
-    gsap.to(logoNavContent, {
-      scale: 1, // Retour à la taille normale
-      duration: 0.2,
-      ease: 'power1.out',
+  // Animation à la sortie du hover
+  logoWrapper.addEventListener('mouseleave', () => {
+    gsap.to(logoWrapper, {
+      scale: 1,
+      duration: 0.3,
+      ease: 'linear',
     });
   });
 }
 
 export const initSocialButtonsHover = (): void => {
-  const buttons = document.querySelectorAll('.github-btn.is-big, .twiter-btn');
+  const buttons = document.querySelectorAll('.twiter-btn');
 
   if (!buttons.length) return;
 
