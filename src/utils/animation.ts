@@ -219,7 +219,7 @@ export function scaleDownLogoNav() {
   logoWrapper.addEventListener('mouseenter', () => {
     gsap.to(logoWrapper, {
       scale: 0.8,
-      duration: 0.3,
+      duration: 0.2,
       ease: 'linear',
     });
   });
@@ -228,7 +228,7 @@ export function scaleDownLogoNav() {
   logoWrapper.addEventListener('mouseleave', () => {
     gsap.to(logoWrapper, {
       scale: 1,
-      duration: 0.3,
+      duration: 0.2,
       ease: 'linear',
     });
   });
